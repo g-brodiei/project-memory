@@ -25,7 +25,8 @@ Skills are independent and non-sequential. None invokes another.
 ## Installation
 
 ```bash
-claude plugin install github:g-brodiei/project-memory
+/plugin marketplace add g-brodiei/project-memory
+/plugin install project-memory@project-memory
 ```
 
 ## Documentation Structure

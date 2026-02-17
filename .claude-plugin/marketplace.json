@@ -1,0 +1,20 @@
+{
+  "name": "project-memory",
+  "owner": {
+    "name": "g-brodiei"
+  },
+  "metadata": {
+    "description": "Structured documentation bootstrapping, session-end learning capture, and documentation health auditing"
+  },
+  "plugins": [
+    {
+      "name": "project-memory",
+      "source": "./",
+      "description": "Structured documentation bootstrapping, session-end learning capture, and documentation health auditing for any project",
+      "version": "1.0.0",
+      "author": {
+        "name": "g-brodiei"
+      }
+    }
+  ]
+}
