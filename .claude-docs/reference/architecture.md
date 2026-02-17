@@ -20,6 +20,9 @@ Skills are independent and non-sequential. None invokes another. CLAUDE.md serve
 .claude-plugin/
   plugin.json         # Plugin metadata (name, description, version, author)
   marketplace.json    # Marketplace listing (owner, plugins array)
+hooks/
+  hooks.json          # Hook event definitions (auto-discovered by Claude Code)
+  session-start.sh    # Checks bootstrap status on session start
 skills/
   bootstrap/SKILL.md  # Scaffolds .claude-docs/ from project scan
   capture/SKILL.md    # Routes session learnings to docs
