@@ -1,0 +1,12 @@
+{
+  "name": "project-memory",
+  "description": "Structured documentation bootstrapping, session-end learning capture, and documentation health auditing for any project",
+  "version": "1.0.0",
+  "author": {
+    "name": "g-brodiei"
+  },
+  "repository": "https://github.com/g-brodiei/project-memory",
+  "homepage": "https://github.com/g-brodiei/project-memory",
+  "license": "MIT",
+  "keywords": ["documentation", "memory", "capture", "bootstrap", "knowledge-management"]
+}
