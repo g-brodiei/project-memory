@@ -11,9 +11,11 @@ Claude Code plugin for structured documentation bootstrapping, session-end learn
 ### .claude-docs/conventions/
 - [skill-design.md](.claude-docs/conventions/skill-design.md) - SKILL.md format, sections, naming conventions
 - [hook-design.md](.claude-docs/conventions/hook-design.md) - Hook script pattern, JSON I/O, hooks.json format
+- [commit-conventions.md](.claude-docs/conventions/commit-conventions.md) - Conventional commits format, types, rules
 
 ### .claude-docs/tasks/
-(none yet)
+- [releasing.md](.claude-docs/tasks/releasing.md) - Version bump, git-cliff changelog, GitHub release workflow
 
 ### .claude-docs/troubleshoot/
 - [marketplace-publishing.md](.claude-docs/troubleshoot/marketplace-publishing.md) - Duplicate version field, marketplace.json structure
+- [git-cliff.md](.claude-docs/troubleshoot/git-cliff.md) - Empty changelog, missing versions, --workdir bug
