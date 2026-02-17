@@ -11,6 +11,7 @@
 - **Plugin manifest**: `.claude-plugin/plugin.json` - name, description, version, author, repository
 - **Marketplace manifest**: `.claude-plugin/marketplace.json` - owner, plugins array for marketplace listing
 - **Skill format**: `skills/{name}/SKILL.md` with YAML frontmatter (`name`, `description`)
+- **Hook format**: `hooks/hooks.json` + shell scripts, auto-discovered by Claude Code
 
 ## Installation
 

@@ -10,6 +10,7 @@ Claude Code plugin for structured documentation bootstrapping, session-end learn
 
 ### .claude-docs/conventions/
 - [skill-design.md](.claude-docs/conventions/skill-design.md) - SKILL.md format, sections, naming conventions
+- [hook-design.md](.claude-docs/conventions/hook-design.md) - Hook script pattern, JSON I/O, hooks.json format
 
 ### .claude-docs/tasks/
 (none yet)

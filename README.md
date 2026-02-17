@@ -1,5 +1,9 @@
 # project-memory
 
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/g-brodiei/project-memory)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-purple.svg)](https://github.com/g-brodiei/project-memory)
+
 Structured documentation bootstrapping, session-end learning capture, and documentation health auditing for any Claude Code project.
 
 ## Skills
@@ -9,6 +13,10 @@ Structured documentation bootstrapping, session-end learning capture, and docume
 | `project-memory:bootstrap` | Discover project and scaffold `.claude-docs/` | Starting a new project or missing `.claude-docs/` |
 | `project-memory:capture` | Capture session learnings into structured docs | End of any work session with new learnings |
 | `project-memory:review` | Audit documentation health | Periodically, or when docs feel stale/bloated |
+
+## SessionStart Hook
+
+When installed, the plugin automatically checks if the current project has been bootstrapped. If `.claude-docs/` or `CLAUDE.md` is missing, it shows a reminder to run `project-memory:bootstrap`. No files are created — purely informational.
 
 ## How It Works
 
