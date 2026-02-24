@@ -21,10 +21,11 @@ You MUST create a task for each item and complete them in order:
 2. **Read CLAUDE.md Documentation Index** — discover where all docs live
 3. **Categorize each learning** — convention, pitfall, architecture, workflow, troubleshooting
 4. **Route each learning to best target file** — match semantically to existing docs
-5. **Create new files if no match** — focused file + add to CLAUDE.md index
-6. **Split oversized files** — any file exceeding 200 lines gets split
-7. **Update MEMORY.md** — compressed summary in "Recent Work" + numbered pitfalls
-8. **Verify constraints** — MEMORY.md <200 lines, all files <200 lines, new files indexed
+5. **Propagate to broader documentation** — search all docs for stale references to changed concepts
+6. **Create new files if no match** — focused file + add to CLAUDE.md index
+7. **Split oversized files** — any file exceeding 200 lines gets split
+8. **Update MEMORY.md** — compressed summary in "Recent Work" + numbered pitfalls
+9. **Verify constraints** — MEMORY.md <200 lines, all files <200 lines, new files indexed
 
 ## Process Flow
 
@@ -35,6 +36,7 @@ digraph capture {
     "Categorize learnings" [shape=box];
     "Match to existing file?" [shape=diamond];
     "Append to existing file" [shape=box];
+    "Propagate to broader docs" [shape=box];
     "Create new focused file" [shape=box];
     "Add to CLAUDE.md index" [shape=box];
     "File > 200 lines?" [shape=diamond];
@@ -49,8 +51,9 @@ digraph capture {
     "Match to existing file?" -> "Append to existing file" [label="yes"];
     "Match to existing file?" -> "Create new focused file" [label="no"];
     "Create new focused file" -> "Add to CLAUDE.md index";
-    "Append to existing file" -> "File > 200 lines?";
-    "Add to CLAUDE.md index" -> "File > 200 lines?";
+    "Append to existing file" -> "Propagate to broader docs";
+    "Add to CLAUDE.md index" -> "Propagate to broader docs";
+    "Propagate to broader docs" -> "File > 200 lines?";
     "File > 200 lines?" -> "Split into sub-files" [label="yes"];
     "File > 200 lines?" -> "Update MEMORY.md" [label="no"];
     "Split into sub-files" -> "Update MEMORY.md";
@@ -108,9 +111,26 @@ For each learning, find the semantically closest file from the CLAUDE.md index:
 1. Exact topic match (e.g., error handling lesson -> `error-handling.md`)
 2. Broader topic match (e.g., HTTP error -> `error-handling.md` or `api-conventions.md`)
 3. Category match (e.g., new convention -> any file in `conventions/`)
-4. No match -> create new file (Step 5)
+4. No match -> create new file (Step 6)
 
-## Step 5: Create New Files If No Match
+## Step 5: Propagate to Broader Documentation
+
+When a session introduces new concepts (enum values, renamed fields, new options, changed thresholds), other docs beyond `.claude-docs/` may contain stale references.
+
+1. **Identify what changed** — new values added, terms renamed, options expanded, thresholds updated
+2. **Search ALL `.md` files** for stale references to the old state:
+   - `docs/prd/` — product requirements
+   - `.claude/agents/` — agent configurations
+   - `.claude/skills/` — skill definitions
+   - `.claude/commands/` — command docs
+   - `backend/.claude-docs/` and `frontend/.claude-docs/` — stack-specific docs
+   - Any other directories containing living documentation
+3. **Update stale references** to reflect the new state (e.g., add new enum value to frequency lists, update renamed fields)
+4. **Skip historical files** — don't update `docs/plans/reports/`, changelogs, archive directories, or completed plan files. Only update *living* docs that guide future work
+
+**Example:** Adding `"2W"` (bi-weekly) rebalancing requires updating frequency lists in PRDs, agent configs that reference available frequencies, and skill files that enumerate rebalancing options.
+
+## Step 6: Create New Files If No Match
 
 When a learning doesn't fit any existing file:
 
@@ -124,7 +144,7 @@ When a learning doesn't fit any existing file:
 - Frontend learning -> `frontend/.claude-docs/conventions/...`
 - Cross-stack -> root `.claude-docs/conventions/...`
 
-## Step 6: Split Oversized Files
+## Step 7: Split Oversized Files
 
 If any file exceeds 200 lines after your additions:
 
@@ -137,7 +157,7 @@ If any file exceeds 200 lines after your additions:
 4. Update the CLAUDE.md index to reference the new files
 5. Delete the original oversized file
 
-## Step 7: Update MEMORY.md
+## Step 8: Update MEMORY.md
 
 Always update the persistent memory file (`~/.claude/projects/.../memory/MEMORY.md`):
 
@@ -148,13 +168,14 @@ Always update the persistent memory file (`~/.claude/projects/.../memory/MEMORY.
 - **Metrics**: Update test counts or other metrics if changed
 - **Compress**: If approaching 200 lines, compress older "Recent Work" entries
 
-## Step 8: Verify Constraints
+## Step 9: Verify Constraints
 
 Before finishing, verify:
 
 - [ ] MEMORY.md is under 200 lines
 - [ ] All updated/created `.claude-docs/` files are under 200 lines
 - [ ] All new files are indexed in the relevant CLAUDE.md
+- [ ] Broader docs searched for stale references to changed concepts
 - [ ] Code examples included where applicable
 - [ ] No blind writes (every file was read before editing)
 
