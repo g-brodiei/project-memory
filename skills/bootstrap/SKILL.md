@@ -22,7 +22,6 @@ You MUST create a task for each item and complete them in order:
 3. **Create .claude-docs/ structure** — 4 standard directories: conventions/, reference/, tasks/, troubleshoot/
 4. **Populate initial documentation** — architecture overview, tech stack, directory structure from discoveries
 5. **Update CLAUDE.md index** — add Documentation Index section (or create CLAUDE.md if missing)
-6. **Update MEMORY.md** — add project structure summary to persistent memory
 
 ## Process Flow
 
@@ -35,7 +34,6 @@ digraph bootstrap {
     "Merge with existing" [shape=box];
     "Populate initial docs" [shape=box];
     "Update CLAUDE.md index" [shape=box];
-    "Update MEMORY.md" [shape=box];
     "Done" [shape=doublecircle];
 
     "Scan project files" -> "Detect existing docs";
@@ -45,8 +43,7 @@ digraph bootstrap {
     "Merge with existing" -> "Populate initial docs";
     "Create .claude-docs/ dirs" -> "Populate initial docs";
     "Populate initial docs" -> "Update CLAUDE.md index";
-    "Update CLAUDE.md index" -> "Update MEMORY.md";
-    "Update MEMORY.md" -> "Done";
+    "Update CLAUDE.md index" -> "Done";
 }
 ```
 
@@ -137,17 +134,6 @@ Format:
 ```
 
 Use table format with Path | Purpose columns for larger indexes.
-
-## Step 6: Update MEMORY.md
-
-Add a project structure summary to MEMORY.md (the persistent memory file at `~/.claude/projects/.../memory/MEMORY.md`):
-
-- Project name and brief description
-- Tech stack summary
-- Key file locations
-- Any critical conventions discovered
-
-Keep the total MEMORY.md under 200 lines.
 
 ## Conventions
 

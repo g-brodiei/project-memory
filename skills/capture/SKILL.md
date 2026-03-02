@@ -24,8 +24,7 @@ You MUST create a task for each item and complete them in order:
 5. **Propagate to broader documentation** — search all docs for stale references to changed concepts
 6. **Create new files if no match** — focused file + add to CLAUDE.md index
 7. **Split oversized files** — any file exceeding 200 lines gets split
-8. **Update MEMORY.md** — compressed summary in "Recent Work" + numbered pitfalls
-9. **Verify constraints** — MEMORY.md <200 lines, all files <200 lines, new files indexed
+8. **Verify constraints** — all files <200 lines, new files indexed
 
 ## Process Flow
 
@@ -41,7 +40,6 @@ digraph capture {
     "Add to CLAUDE.md index" [shape=box];
     "File > 200 lines?" [shape=diamond];
     "Split into sub-files" [shape=box];
-    "Update MEMORY.md" [shape=box];
     "Verify constraints" [shape=box];
     "Done" [shape=doublecircle];
 
@@ -55,9 +53,8 @@ digraph capture {
     "Add to CLAUDE.md index" -> "Propagate to broader docs";
     "Propagate to broader docs" -> "File > 200 lines?";
     "File > 200 lines?" -> "Split into sub-files" [label="yes"];
-    "File > 200 lines?" -> "Update MEMORY.md" [label="no"];
-    "Split into sub-files" -> "Update MEMORY.md";
-    "Update MEMORY.md" -> "Verify constraints";
+    "File > 200 lines?" -> "Verify constraints" [label="no"];
+    "Split into sub-files" -> "Verify constraints";
     "Verify constraints" -> "Done";
 }
 ```
@@ -95,7 +92,7 @@ Assign each learning to a category:
 | Architecture | `reference/` | System design, data flow, component relationships |
 | Workflow | tasks/ or conventions/ | Development process, deployment, testing |
 | Troubleshooting | `troubleshoot/` | Bug fixes, environment issues, known gotchas |
-| Pitfall | MEMORY.md | One-line warnings for common mistakes |
+| Pitfall | `troubleshoot/` | One-line warnings for common mistakes |
 
 ## Step 4: Route to Best Target File
 
@@ -157,22 +154,10 @@ If any file exceeds 200 lines after your additions:
 4. Update the CLAUDE.md index to reference the new files
 5. Delete the original oversized file
 
-## Step 8: Update MEMORY.md
-
-Always update the persistent memory file (`~/.claude/projects/.../memory/MEMORY.md`):
-
-- **Recent Work**: Add session summary (5-10 lines max) under "Recent Major Work"
-- **Pitfalls**: Add new pitfalls to "Common Pitfalls" section
-  - Number sequentially (continue from highest existing number)
-  - One line each: `N. **Bold title** -> concise description`
-- **Metrics**: Update test counts or other metrics if changed
-- **Compress**: If approaching 200 lines, compress older "Recent Work" entries
-
-## Step 9: Verify Constraints
+## Step 8: Verify Constraints
 
 Before finishing, verify:
 
-- [ ] MEMORY.md is under 200 lines
 - [ ] All updated/created `.claude-docs/` files are under 200 lines
 - [ ] All new files are indexed in the relevant CLAUDE.md
 - [ ] Broader docs searched for stale references to changed concepts
@@ -193,14 +178,12 @@ Session Capture: [topic]
 - **Patterns**: [generalizable rules]
 
 ## Documentation Updated
-- `MEMORY.md`: Added [topic] to Recent Work + pitfalls #N-M
 - `[path/to/file]`: [what was updated]
 
 ## Files Created (if any)
 - `[path/to/new-file]` - [description]
 
 ## Verification
-- [x] MEMORY.md under 200 lines
 - [x] All files under 200 lines
 - [x] New files indexed in CLAUDE.md
 - [x] Code examples included where applicable
@@ -213,7 +196,7 @@ These thoughts mean STOP — you're bypassing the routing:
 | Thought | Reality |
 |---------|---------|
 | "I know where this goes" | Read CLAUDE.md index first. Projects evolve. |
-| "I'll just add it to MEMORY.md" | MEMORY.md is for summaries. Details go in .claude-docs/. |
+| "I'll just dump it in one file" | Route to the best semantic match. Details go in .claude-docs/. |
 | "This file is close enough" | Read the file first. Wrong routing = lost knowledge. |
 | "I'll organize it later" | Unrouted knowledge is lost knowledge. Route now. |
 | "No docs exist yet" | Run project-memory:bootstrap first. |

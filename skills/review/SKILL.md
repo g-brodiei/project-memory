@@ -19,9 +19,8 @@ You MUST create a task for each item and complete them in order:
 
 1. **Read CLAUDE.md Documentation Index** — build map of all referenced docs
 2. **Scan all .claude-docs/ files** — check for oversized, orphaned, broken refs
-3. **Check MEMORY.md** — verify size (<200 lines) and structure
-4. **Present findings report** — show all issues with actionable recommendations
-5. **Apply approved fixes** — only after user confirms which fixes to apply
+3. **Present findings report** — show all issues with actionable recommendations
+4. **Apply approved fixes** — only after user confirms which fixes to apply
 
 ## Process Flow
 
@@ -29,15 +28,13 @@ You MUST create a task for each item and complete them in order:
 digraph review {
     "Read CLAUDE.md index" [shape=box];
     "Scan .claude-docs/ files" [shape=box];
-    "Check MEMORY.md" [shape=box];
     "Present findings report" [shape=box];
     "User approves fixes?" [shape=diamond];
     "Apply approved fixes" [shape=box];
     "Done" [shape=doublecircle];
 
     "Read CLAUDE.md index" -> "Scan .claude-docs/ files";
-    "Scan .claude-docs/ files" -> "Check MEMORY.md";
-    "Check MEMORY.md" -> "Present findings report";
+    "Scan .claude-docs/ files" -> "Present findings report";
     "Present findings report" -> "User approves fixes?";
     "User approves fixes?" -> "Apply approved fixes" [label="yes"];
     "User approves fixes?" -> "Done" [label="no/skip"];
@@ -51,11 +48,10 @@ digraph review {
 
 Files exceeding 200 lines hurt AI readability. Claude reads files fully each time — smaller files mean faster, more targeted lookups.
 
-**Detection:** Count lines in every `.claude-docs/` file and MEMORY.md.
+**Detection:** Count lines in every `.claude-docs/` file.
 
 **Recommendation:** Identify semantic sections and suggest split points.
 - `error-handling.md` (280 lines) -> split at HTTP/DB/async sections
-- `MEMORY.md` (220 lines) -> compress older "Recent Work" entries
 
 ### Orphaned
 
@@ -75,9 +71,9 @@ CLAUDE.md index entries pointing to files that don't exist. These create confusi
 
 ### Stale
 
-Files not mentioned in recent MEMORY.md entries and not modified recently. These may contain outdated information.
+Files not modified recently that may contain outdated information.
 
-**Detection:** Cross-reference file topics with MEMORY.md "Recent Work" entries. Check git blame for last modification date.
+**Detection:** Check git blame for last modification date.
 
 **Recommendation:** Flag for human review. Do NOT auto-fix stale content — it may still be accurate.
 
@@ -100,10 +96,6 @@ Present findings as:
 ### Warnings
 - [ ] **Orphaned**: `path/to/orphan.md` — not in any CLAUDE.md index
 - [ ] **Stale**: `path/to/old.md` — last referenced N months ago
-
-### MEMORY.md Status
-- Lines: N/200
-- Structure: [OK / needs compression]
 
 ### Recommendations
 1. Split `oversized-file.md` into focused sub-files
@@ -130,11 +122,6 @@ After user approves specific fixes:
 **For broken references:**
 1. Remove the dead reference from CLAUDE.md
 2. Or create a stub file if the topic should be documented
-
-**For MEMORY.md compression:**
-1. Collapse older "Recent Work" entries into single-line summaries
-2. Remove redundant pitfall entries (merge related ones)
-3. Verify final line count is under 200
 
 ## Red Flags
 

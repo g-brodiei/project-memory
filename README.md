@@ -1,6 +1,6 @@
 # project-memory
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/g-brodiei/project-memory)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/g-brodiei/project-memory)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-purple.svg)](https://github.com/g-brodiei/project-memory)
 
@@ -24,7 +24,7 @@ The three skills share **CLAUDE.md as their coordination point**:
 
 ```
 bootstrap -----> Creates .claude-docs/ + CLAUDE.md index (run once or on major changes)
-capture -> Reads CLAUDE.md index -> writes to .claude-docs/ + MEMORY.md (session-end)
+capture -> Reads CLAUDE.md index -> writes to .claude-docs/ (session-end)
 review ---------> Reads CLAUDE.md index -> audits .claude-docs/ -> reports/fixes (on-demand)
 ```
 
@@ -48,7 +48,6 @@ The plugin creates and maintains this structure:
   tasks/          # Step-by-step: guides for common operations
   troubleshoot/   # Fix-it: known issues and solutions
 CLAUDE.md         # Index pointing to all .claude-docs/ files
-MEMORY.md         # Persistent session memory (<200 lines, loaded every prompt)
 ```
 
 ## Conventions
@@ -60,4 +59,3 @@ MEMORY.md         # Persistent session memory (<200 lines, loaded every prompt)
 | Split naming | `error-handling.md` -> `error-handling-http.md`, `error-handling-db.md` |
 | 4 directories | conventions/, reference/, tasks/, troubleshoot/ |
 | CLAUDE.md as index | All doc files referenced from nearest CLAUDE.md Documentation Index |
-| MEMORY.md <200 lines | Compress older entries. Loaded into every system prompt |
