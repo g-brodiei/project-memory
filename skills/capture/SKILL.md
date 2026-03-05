@@ -10,7 +10,7 @@ description: "Use at session end to capture learnings, patterns, and pitfalls in
 Capture session learnings and route them to the right documentation files. Reads the CLAUDE.md index to discover where docs live, then writes learnings to semantically matching files.
 
 <HARD-GATE>
-You MUST read the CLAUDE.md Documentation Index before writing to any file. No blind writes. If CLAUDE.md has no index, run project-memory:bootstrap first.
+You MUST read the CLAUDE.md Documentation Index before writing to any file. No blind writes. If CLAUDE.md has no index or lacks a `## Documentation Index` heading with at least one markdown link, run project-memory:bootstrap first or ask the user to fix CLAUDE.md manually.
 </HARD-GATE>
 
 ## Checklist
@@ -114,6 +114,19 @@ For each learning, find the semantically closest file from the CLAUDE.md index:
 
 When a session introduces new concepts (enum values, renamed fields, new options, changed thresholds), other docs beyond `.claude-docs/` may contain stale references.
 
+**When to propagate:**
+- Enum/option values added, removed, or renamed
+- Field or variable names changed
+- Default values or thresholds updated
+- API endpoints renamed or restructured
+
+**When NOT to propagate:**
+- Changelog entries (historical record — leave as-is)
+- Archived plans or completed sprint docs
+- Git commit messages or release notes
+- Comments that quote old behavior for context (e.g., "previously X, now Y")
+
+**Steps:**
 1. **Identify what changed** — new values added, terms renamed, options expanded, thresholds updated
 2. **Search ALL `.md` files** for stale references to the old state:
    - `docs/prd/` — product requirements
@@ -126,6 +139,8 @@ When a session introduces new concepts (enum values, renamed fields, new options
 4. **Skip historical files** — don't update `docs/plans/reports/`, changelogs, archive directories, or completed plan files. Only update *living* docs that guide future work
 
 **Example:** Adding `"2W"` (bi-weekly) rebalancing requires updating frequency lists in PRDs, agent configs that reference available frequencies, and skill files that enumerate rebalancing options.
+
+**Example of what NOT to propagate:** CHANGELOG says "removed legacy polling mode". Do NOT update it to mention the new mode — changelogs record what happened at that point in time.
 
 ## Step 6: Create New Files If No Match
 

@@ -69,6 +69,17 @@ Also check:
 
 **For monorepos:** Identify each package/workspace. Each may need its own `.claude-docs/` and `CLAUDE.md`.
 
+**Monorepo example layout:**
+```
+CLAUDE.md                          # Master index — links to all per-stack indexes
+.claude-docs/                      # Cross-cutting docs (CI/CD, shared conventions)
+packages/frontend/CLAUDE.md        # Frontend-specific index
+packages/frontend/.claude-docs/    # Frontend conventions, architecture, etc.
+packages/backend/CLAUDE.md         # Backend-specific index
+packages/backend/.claude-docs/     # Backend conventions, architecture, etc.
+```
+Root `CLAUDE.md` serves as the master index linking to per-stack indexes. Cross-cutting docs (shared linting, CI/CD, deployment) stay at the root level. Stack-specific docs live under their respective package.
+
 ## Step 2: Detect Existing Documentation
 
 Search for all documentation already present:

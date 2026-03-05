@@ -55,3 +55,7 @@ gh release create vX.Y.Z --title "vX.Y.Z" --notes "$(git-cliff --latest)"
 | `git-cliff --unreleased` | Show unreleased changes |
 
 **Gotcha:** Do not use `--workdir` flag — it adds an absolute path filter that prevents commit matching. Run from the repo root instead.
+
+## Known Issues
+
+- **v1.3.0 CHANGELOG categorization**: Commit `8396136` uses `feat:` prefix ("feat: remove MEMORY.md updating from all skills") but describes removing behavior, not adding a feature. Will be corrected in the next release's changelog or via a manual edit.
