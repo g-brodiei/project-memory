@@ -80,6 +80,13 @@ packages/backend/.claude-docs/     # Backend conventions, architecture, etc.
 ```
 Root `CLAUDE.md` serves as the master index linking to per-stack indexes. Cross-cutting docs (shared linting, CI/CD, deployment) stay at the root level. Stack-specific docs live under their respective package.
 
+**Custom directory detection:** During the scan, note if the project has domains that don't fit the standard 4 categories. Examples:
+- Heavy API documentation -> might warrant `api-examples/`
+- Complex data models -> might warrant `data-models/`
+- Multiple external integrations -> might warrant `integrations/`
+
+Flag these for Step 3.
+
 ## Step 2: Detect Existing Documentation
 
 Search for all documentation already present:
@@ -109,6 +116,8 @@ Create the 4 standard directories:
 packages/frontend/.claude-docs/
 packages/backend/.claude-docs/
 ```
+
+**Custom directories:** If Step 1 flagged project-specific documentation needs, invoke `project-memory:propose-directory` for each proposed directory before proceeding to Step 4. Present each proposal to the user for approval.
 
 ## Step 4: Populate Initial Documentation
 

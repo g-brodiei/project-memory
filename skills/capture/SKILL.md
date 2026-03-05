@@ -93,6 +93,7 @@ Assign each learning to a category:
 | Workflow | tasks/ or conventions/ | Development process, deployment, testing |
 | Troubleshooting | `troubleshoot/` | Bug fixes, environment issues, known gotchas |
 | Pitfall | `troubleshoot/` | One-line warnings for common mistakes |
+| No fit | invoke `propose-directory` | Learning doesn't match any existing category |
 
 ## Step 4: Route to Best Target File
 
@@ -108,7 +109,8 @@ For each learning, find the semantically closest file from the CLAUDE.md index:
 1. Exact topic match (e.g., error handling lesson -> `error-handling.md`)
 2. Broader topic match (e.g., HTTP error -> `error-handling.md` or `api-conventions.md`)
 3. Category match (e.g., new convention -> any file in `conventions/`)
-4. No match -> create new file (Step 6)
+4. No category match -> invoke `project-memory:propose-directory` to propose a new directory
+5. No match after proposal rejected -> create new file in closest existing category (Step 6)
 
 ## Step 5: Propagate to Broader Documentation
 
@@ -143,6 +145,8 @@ When a session introduces new concepts (enum values, renamed fields, new options
 **Example of what NOT to propagate:** CHANGELOG says "removed legacy polling mode". Do NOT update it to mention the new mode — changelogs record what happened at that point in time.
 
 ## Step 6: Create New Files If No Match
+
+If `project-memory:propose-directory` was invoked and approved in Step 4, create the new file in the approved directory instead of the standard 4.
 
 When a learning doesn't fit any existing file:
 
