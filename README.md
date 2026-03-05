@@ -14,6 +14,22 @@ Structured documentation bootstrapping, session-end learning capture, and docume
 | `project-memory:capture` | Capture session learnings into structured docs | End of any work session with new learnings |
 | `project-memory:review` | Audit documentation health | Periodically, or when docs feel stale/bloated |
 
+Skills are independent and can be run in any order. Bootstrap is recommended first to establish the `.claude-docs/` structure, but capture and review will prompt you to bootstrap if needed.
+
+## What Bootstrap Creates
+
+```
+your-project/
+  .claude-docs/
+    conventions/    # code-style.md, git-workflow.md, ...
+    reference/      # architecture.md, tech-stack.md, ...
+    tasks/          # deploying.md, development-setup.md, ...
+    troubleshoot/   # known-issues.md, environment-setup.md, ...
+  CLAUDE.md         # Documentation Index linking to all the above
+```
+
+File names and content are generated from your actual project scan — the above are examples.
+
 ## SessionStart Hook
 
 When installed, the plugin automatically checks if the current project has been bootstrapped. If `.claude-docs/` or `CLAUDE.md` is missing, it shows a reminder to run `project-memory:bootstrap`. No files are created — purely informational.
@@ -32,9 +48,18 @@ Skills are independent and non-sequential. None invokes another.
 
 ## Installation
 
+### From Marketplace (recommended)
+
 ```bash
 /plugin marketplace add g-brodiei/project-memory
 /plugin install project-memory@project-memory
+```
+
+### From Source
+
+```bash
+git clone https://github.com/g-brodiei/project-memory.git
+/plugin install /path/to/project-memory
 ```
 
 ## Documentation Structure

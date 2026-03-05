@@ -11,6 +11,8 @@ Audit the health of project documentation. Finds oversized files, orphaned docs,
 
 <HARD-GATE>
 You MUST present the full findings report to the user before making ANY changes. Read-then-report, never read-then-fix silently.
+
+Before scanning, verify CLAUDE.md has a `## Documentation Index` heading with at least one markdown link. If malformed or missing, instruct the user to run project-memory:bootstrap first or fix CLAUDE.md manually.
 </HARD-GATE>
 
 ## Checklist
@@ -71,9 +73,13 @@ CLAUDE.md index entries pointing to files that don't exist. These create confusi
 
 ### Stale
 
-Files not modified recently that may contain outdated information.
+Files not modified recently whose subject matter has changed in the codebase.
 
-**Detection:** Check git blame for last modification date.
+**Detection:** A file is potentially stale when BOTH conditions are true:
+1. The doc file itself has not been modified in >6 months (check `git log -1 --format=%ci` on the doc file)
+2. The source code or config files the doc references HAVE been modified since the doc was last updated (check `git log --since` on referenced paths)
+
+A doc untouched for 6 months is fine if its subject hasn't changed. The signal is the gap between doc age and source code activity, not doc age alone.
 
 **Recommendation:** Flag for human review. Do NOT auto-fix stale content — it may still be accurate.
 
