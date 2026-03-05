@@ -83,6 +83,14 @@ A doc untouched for 6 months is fine if its subject hasn't changed. The signal i
 
 **Recommendation:** Flag for human review. Do NOT auto-fix stale content — it may still be accurate.
 
+### Directory Overload
+
+Directories with too many files covering divergent topics become hard to navigate and route to.
+
+**Detection:** Count files in each `.claude-docs/` subdirectory. Flag directories with 10+ files where the topics are divergent (not all related to the same domain).
+
+**Recommendation:** Invoke `project-memory:propose-directory` to split divergent files into a new focused directory. Include the proposal in the findings report for user approval.
+
 ## Report Format
 
 Present findings as:
@@ -102,6 +110,8 @@ Present findings as:
 ### Warnings
 - [ ] **Orphaned**: `path/to/orphan.md` — not in any CLAUDE.md index
 - [ ] **Stale**: `path/to/old.md` — last referenced N months ago
+- [ ] **Overloaded**: `.claude-docs/reference/` — N files with divergent topics
+  Suggested new directory: `{name}/` for [{list of files that would move}]
 
 ### Recommendations
 1. Split `oversized-file.md` into focused sub-files
@@ -128,6 +138,11 @@ After user approves specific fixes:
 **For broken references:**
 1. Remove the dead reference from CLAUDE.md
 2. Or create a stub file if the topic should be documented
+
+**For overloaded directories:**
+1. Invoke `project-memory:propose-directory` with the suggested directory name
+2. On approval, move the relevant files to the new directory
+3. Update CLAUDE.md index — remove old paths, add new paths under new section
 
 ## Red Flags
 
